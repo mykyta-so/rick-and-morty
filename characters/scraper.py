@@ -1,10 +1,10 @@
 import requests
 
-from characters.models import Characters
+from characters.models import Character
 from django.conf import settings
 
 
-def scrape_characters() -> list[Characters]:
+def scrape_characters() -> list[Character]:
     next_url_to_scrape = settings.RICK_AND_MORTY_API_CHARACTERS_URL
 
     characters = []
@@ -14,7 +14,7 @@ def scrape_characters() -> list[Characters]:
 
         for characters_dict in characters_response["results"]:
             characters.append(
-                Characters(
+                Character(
                     api_id=characters_dict["id"],
                     name=characters_dict["name"],
                     status=characters_dict["status"],
@@ -29,7 +29,7 @@ def scrape_characters() -> list[Characters]:
     return characters
 
 
-def save_characters(characters: list[Characters]) -> None:
+def save_characters(characters: list[Character]) -> None:
     for character in characters:
         character.save()
 

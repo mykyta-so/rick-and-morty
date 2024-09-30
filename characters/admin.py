@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from characters.models import Characters
+from characters.models import Character
 
-admin.site.register(Characters)
+admin.site.register(Character)

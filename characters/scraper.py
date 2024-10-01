@@ -1,4 +1,5 @@
 import requests
+from django.db import IntegrityError
 
 from characters.models import Character
 from django.conf import settings
@@ -31,7 +32,10 @@ def scrape_characters() -> list[Character]:
 
 def save_characters(characters: list[Character]) -> None:
     for character in characters:
-        character.save()
+        try:
+            character.save()
+        except IntegrityError:
+            print(f"Character {character.name} already exists in database.")
 
 
 def sync_characters_with_api() -> None:
